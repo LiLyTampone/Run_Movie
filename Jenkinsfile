@@ -6,3 +6,6 @@ pipeline {
                 { 
                     git branch: 'main', url: 'https://github.com/LiLyTampone/Run_Movie.git' 
                 } 
+        }
+    }
+}
