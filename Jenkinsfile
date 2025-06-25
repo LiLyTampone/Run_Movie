@@ -1,7 +1,7 @@
 pipeline {
     agent any
 
-        environment {
+    environment {
         PYTHON = 'C:\\Users\\DELL\\AppData\\Local\\Programs\\Python\\Python313\\python.exe'
         PIP = 'C:\\Users\\DELL\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\pip.exe'
         VENV_DIR = '.venv'
@@ -17,10 +17,10 @@ pipeline {
         stage('Setup Python Env') {
             steps {
                 bat """
-                    python -m venv %VENV_DIR%
+                    "%PYTHON%" -m venv %VENV_DIR%
                     call %VENV_DIR%\\Scripts\\activate.bat
-                    pip install --upgrade pip
-                    pip install -r requirements.txt
+                    %VENV_DIR%\\Scripts\\pip.exe install --upgrade pip
+                    %VENV_DIR%\\Scripts\\pip.exe install -r requirements.txt
                 """
             }
         }
@@ -29,7 +29,7 @@ pipeline {
             steps {
                 bat """
                     call %VENV_DIR%\\Scripts\\activate.bat
-                    pytest tests/
+                    %VENV_DIR%\\Scripts\\pytest.exe tests/
                 """
             }
         }
@@ -39,7 +39,7 @@ pipeline {
                 echo 'Deploying...'
                 bat """
                     call %VENV_DIR%\\Scripts\\activate.bat
-                    start /b python app.py
+                    start /b %VENV_DIR%\\Scripts\\python.exe app.py
                 """
             }
         }
