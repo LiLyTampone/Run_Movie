@@ -14,31 +14,31 @@ pipeline {
 
         stage('Setup Python Env') {
             steps {
-                sh '''
-                    python -m venv ${VENV_DIR}
-                    . ${VENV_DIR}/bin/activate
+                bat """
+                    python -m venv %VENV_DIR%
+                    call %VENV_DIR%\\Scripts\\activate.bat
                     pip install --upgrade pip
                     pip install -r requirements.txt
-                '''
+                """
             }
         }
 
         stage('Run Tests') {
             steps {
-                sh '''
-                    . ${VENV_DIR}/bin/activate
+                bat """
+                    call %VENV_DIR%\\Scripts\\activate.bat
                     pytest tests/
-                '''
+                """
             }
         }
 
         stage('Deploy App') {
             steps {
                 echo 'Deploying...'
-                sh '''
-                    . ${VENV_DIR}/bin/activate
-                    nohup python app.py > output.log 2>&1 &
-                '''
+                bat """
+                    call %VENV_DIR%\\Scripts\\activate.bat
+                    start /b python app.py
+                """
             }
         }
     }
