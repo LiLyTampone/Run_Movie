@@ -1,8 +1,10 @@
 pipeline {
     agent any
 
-    environment {
-        VENV_DIR = ".venv"
+        environment {
+        PYTHON = 'C:\\Users\\DELL\\AppData\\Local\\Programs\\Python\\Python313\\python.exe'
+        PIP = 'C:\\Users\\DELL\\AppData\\Local\\Programs\\Python\\Python313\\Scripts\\pip.exe'
+        VENV_DIR = '.venv'
     }
 
     stages {
